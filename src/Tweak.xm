@@ -35,10 +35,19 @@ CFArrayRef proxy_VPNConfigurationCopyAll(CFStringRef vpnType) {
 #endif
 
 			// This is horrible, but I found no better ways
-			id cfg_id = *(id *)((unsigned int)cfg + 0x50);
-			if ([cfg_id respondsToSelector:sel_appName] && [[cfg_id performSelector:sel_appName] isEqualToString:@"OpenVPN"]) {
-				CFArrayAppendValue(n, cfg);
-			}
+			#ifdef __LP64__
+				// iOS is 64 Bit
+    			id cfg_id = *(id *)((intptr_t)cfg + 0xA0);
+				if ([cfg_id respondsToSelector:sel_appName] && [[cfg_id performSelector:sel_appName] isEqualToString:@"OpenVPN"]) {
+					CFArrayAppendValue(n, cfg);
+				}
+			#else
+				// iOS is 32 Bit
+    			id cfg_id = *(id *)((intptr_t)cfg + 0x50);
+				if ([cfg_id respondsToSelector:sel_appName] && [[cfg_id performSelector:sel_appName] isEqualToString:@"OpenVPN"]) {
+					CFArrayAppendValue(n, cfg);
+				}
+			#endif
 	
 #ifdef DEBUG
 		@catch(NSException * e) {
