@@ -35,7 +35,7 @@ CFArrayRef proxy_VPNConfigurationCopyAll(CFStringRef vpnType) {
 #endif
 
 			// This is horrible, but I found no better ways
-			id cfg_id = *(id *)((unsigned int)cfg + 0x50);
+			id cfg_id = *(id *)((intptr_t)cfg + sizeof(intptr_t)*20);
 			if ([cfg_id respondsToSelector:sel_appName] && [[cfg_id performSelector:sel_appName] isEqualToString:@"OpenVPN"]) {
 				CFArrayAppendValue(n, cfg);
 			}
