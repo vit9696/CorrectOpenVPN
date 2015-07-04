@@ -1,7 +1,7 @@
 Package: org.vit9696.correctopenvpn
 Name: CorrectOpenVPN
 Depends: mobilesubstrate
-Version: 1.0
+Version: 1.2
 Architecture: iphoneos-arm
 Description: Fixes OpenVPN Connect crash on iOS 8
 Maintainer: vit9696
